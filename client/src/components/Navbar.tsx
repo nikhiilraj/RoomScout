@@ -39,7 +39,7 @@ const Navbar = () => {
                 <Link href="/signin">
                     <Button
                         variant="secondary"
-                        className="text-white border-2 border-white bg-transparent hover:bg-white hover:text-primary-700 rounded-lg"
+                        className="text-white border border-white bg-transparent hover:bg-white hover:text-primary-700 rounded-lg"
                     >
                         Sign In
                     </Button>
@@ -47,7 +47,7 @@ const Navbar = () => {
                 <Link href="/signup">
                     <Button
                         variant="secondary"
-                        className="text-white border-2 border-white bg-secondary-600 hover:bg-white hover:text-primary-700 rounded-lg"
+                        className="text-white border-white bg-secondary-600 hover:bg-white hover:text-primary-700 rounded-lg"
                     >
                         Sign Up
                     </Button>
