@@ -1,108 +1,40 @@
-/* global.css — Tailwind v4 friendly single file replacement
-   - Imports Tailwind
-   - Declares CSS theme variables (converted from tailwind.config.ts)
-   - Replaces config-only @apply usages with direct CSS using those vars
-   - Leaves normal Tailwind @apply (flex, gap, rounded-lg, etc.) intact
-*/
-
 @import "tailwindcss";
 
-/* Basic resets and small utilities (these are standard and still work) */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+/* 1. Configuration & Theme */
+@theme {
+  /* Migrate your custom primary scale */
+  --color-primary-50: #fcfcfc;
+  --color-primary-100: #f1f1f2;
+  --color-primary-200: #e0e0e2;
+  --color-primary-300: #c7c7cc;
+  --color-primary-400: #a8a8af;
+  --color-primary-500: #82828b;
+  --color-primary-600: #57575f;
+  --color-primary-700: #27272a;
+  --color-primary-800: #111113;
+  --color-primary-900: #040405;
+  --color-primary-950: #000000;
 
-html,
-body,
-#root,
-.app {
-  height: 100%;
-  width: 100%;
-  @apply text-sm;
-  @apply bg-white;
-  @apply dark:bg-black;
-}
+  /* Migrate your custom secondary scale */
+  --color-secondary-50: #fefcfc;
+  --color-secondary-100: #fdf2f2;
+  --color-secondary-200: #fae1e1;
+  --color-secondary-300: #f6c9c9;
+  --color-secondary-400: #f1abab;
+  --color-secondary-500: #eb8686;
+  --color-secondary-600: #e45a5a;
+  --color-secondary-700: #dc2828;
+  --color-secondary-800: #7c1414;
+  --color-secondary-900: #400a0a;
+  --color-secondary-950: #2c0707;
 
-/* Theme CSS variables (original :root HSL tokens preserved) */
-:root {
-  /* HSL tokens used by many places (kept as HSL component lists so hsl(var(--...)) works) */
-  --background: 0 0% 98%;
-  --foreground: 222.2 84% 4.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
-  --primary: 221.2 83.2% 53.3%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 210 40% 96.1%;
-  --accent-foreground: 222.2 47.4% 11.2%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 88%;
-  --ring: 221.2 83.2% 53.3%;
-  --radius: 0.5rem;
-  --sidebar-background: 0 0% 98%;
-  --sidebar-foreground: 240 5.3% 26.1%;
-  --sidebar-primary: 240 5.9% 10%;
-  --sidebar-primary-foreground: 0 0% 98%;
-  --sidebar-accent: 240 4.8% 95.9%;
-  --sidebar-accent-foreground: 240 5.9% 10%;
-  --sidebar-border: 220 13% 91%;
-  --sidebar-ring: 217.2 91.2% 59.8%;
-
-  /* Primary palette (copied from tailwind.config.ts) — hex scale for direct use */
-  --primary-50:  #fcfcfc;
-  --primary-100: #f1f1f2;
-  --primary-200: #e0e0e2;
-  --primary-300: #c7c7cc;
-  --primary-400: #a8a8af;
-  --primary-500: #82828b;
-  --primary-600: #57575f;
-  --primary-700: #27272a;
-  --primary-800: #111113;
-  --primary-900: #040405;
-  --primary-950: #000000;
-
-  /* Secondary palette */
-  --secondary-50:  #fefcfc;
-  --secondary-100: #fdf2f2;
-  --secondary-200: #fae1e1;
-  --secondary-300: #f6c9c9;
-  --secondary-400: #f1abab;
-  --secondary-500: #eb8686;
-  --secondary-600: #e45a5a;
-  --secondary-700: #dc2828;
-  --secondary-800: #7c1414;
-  --secondary-900: #400a0a;
-  --secondary-950: #2c0707;
-
-  /* Muted / Accent / Destructive derived fallbacks (use HSL tokens above via hsl(var(--...))) */
-  /* Chart placeholders in case you use them */
-  --chart-1: 0 0% 10%;
-  --chart-2: 0 0% 20%;
-  --chart-3: 0 0% 30%;
-  --chart-4: 0 0% 40%;
-  --chart-5: 0 0% 50%;
-
-  /* semantic mapping for ease-of-use where code references single token values */
+  /* Map Shadcn / CSS Variables to Tailwind utilities */
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
-
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
   --color-muted: hsl(var(--muted));
   --color-muted-foreground: hsl(var(--muted-foreground));
   --color-accent: hsl(var(--accent));
@@ -113,8 +45,8 @@ body,
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
 
-  /* Sidebar semantic colors */
-  --color-sidebar-background: hsl(var(--sidebar-background));
+  /* Sidebar */
+  --color-sidebar: hsl(var(--sidebar-background));
   --color-sidebar-foreground: hsl(var(--sidebar-foreground));
   --color-sidebar-primary: hsl(var(--sidebar-primary));
   --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
@@ -122,130 +54,140 @@ body,
   --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
   --color-sidebar-border: hsl(var(--sidebar-border));
   --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  /* Custom Radius */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }
 
-/* Dark theme overrides (keeps your .dark toggle behavior) */
-.dark {
-  --background: 222.2 84% 3.9%;
-  --foreground: 210 40% 98%;
-  --card: 222.2 84% 4.9%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222.2 84% 4.9%;
-  --popover-foreground: 210 40% 98%;
-  --primary: 217.2 91.2% 59.8%;
-  --primary-foreground: 222.2 47.4% 11.2%;
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 15.5%;
-  --ring: 224.3 76.3% 48%;
-  --sidebar-background: 240 5.9% 10%;
-  --sidebar-foreground: 240 4.8% 95.9%;
-  --sidebar-primary: 224.3 76.3% 48%;
-  --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 240 3.7% 15.9%;
-  --sidebar-accent-foreground: 240 4.8% 95.9%;
-  --sidebar-border: 240 3.7% 15.9%;
-  --sidebar-ring: 217.2 91.2% 59.8%;
+/* 2. Base Styles */
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 88%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
 
-  /* If you want primary-xxx hex to change in dark mode, override them here too.
-     (left out for brevity; keep if you need swapped hexes) */
-}
-
-/* Layout utilities using Tailwind @apply where they are standard utilities */
-.dashboard-container {
-  @apply pt-8 pb-5 px-8;
-}
-
-/* Popup content: replaced bg-primary-700 @apply with direct background-color using --primary-700 var */
-.mapboxgl-popup-content {
-  background-color: var(--primary-700) !important;
-  @apply rounded-lg !important;
-  padding-top: 0.5rem; /* py-2 */
-  padding-bottom: 0.5rem;
-  padding-left: 0.75rem; /* px-3 */
-  padding-right: 0.75rem;
-}
-
-/* mapbox popup tip border colors (replaced border-*-primary-700 @apply with direct border-color) */
-.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
-  border-bottom-color: var(--primary-700) !important;
-}
-.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
-  border-top-color: var(--primary-700) !important;
-}
-.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
-  border-right-color: var(--primary-700) !important;
-}
-.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
-  border-left-color: var(--primary-700) !important;
-}
-
-/* Marker popup: bg-primary-700 -> direct, other standard utilities remain via @apply */
-.marker-popup {
-  background-color: var(--primary-700);
-  color: white; /* text-white */
-  padding: 0;
-  margin: 0;
-  @apply flex !important;
-  @apply justify-between !important;
-  @apply items-center !important;
-  @apply gap-3 !important;
+  .dark {
+    --background: 222.2 84% 3.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 15.5%;
+    --ring: 224.3 76.3% 48%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
 }
 
-.marker-popup-image {
-  @apply w-10 h-10 object-cover rounded-lg;
-  background: white;
+@layer base {
+  *, ::after, ::before {
+    box-sizing: border-box;
+    border-color: var(--color-border);
+  }
+
+  html, body, #root, .app {
+    height: 100%;
+    width: 100%;
+    @apply text-sm bg-background text-foreground;
+  }
 }
 
-.marker-popup-price {
-  @apply text-sm font-semibold;
-  color: var(--primary-200);
+/* 3. Custom Utilities & Component Styles */
+@layer components {
+  .dashboard-container {
+    @apply pt-8 pb-5 px-8;
+  }
+
+  .mapboxgl-popup-content {
+    @apply !bg-primary-700 !rounded-lg !py-2 !px-3;
+  }
+
+  .mapboxgl-popup-anchor-top .mapboxgl-popup-tip { @apply !border-b-primary-700; }
+  .mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip { @apply !border-t-primary-700; }
+  .mapboxgl-popup-anchor-left .mapboxgl-popup-tip { @apply !border-r-primary-700; }
+  .mapboxgl-popup-anchor-right .mapboxgl-popup-tip { @apply !border-l-primary-700; }
+
+  .marker-popup {
+    @apply bg-primary-700 text-white p-0 m-0 !flex justify-between items-center gap-3;
+  }
+
+  .marker-popup-image {
+    @apply w-10 h-10 object-cover bg-white rounded-lg;
+  }
+
+  .marker-popup-price {
+    @apply text-sm font-semibold text-primary-200;
+  }
+
+  .marker-popup-title {
+    @apply hover:underline hover:text-blue-300 cursor-pointer focus:outline-none;
+  }
+
+  .marker-popup-price-unit {
+    @apply text-xs text-primary-500 font-normal;
+  }
 }
 
-.marker-popup-title {
-  @apply hover:underline hover:text-blue-300 cursor-pointer;
-  @apply focus:outline-none;
-}
-
-.marker-popup-price-unit {
-  @apply text-xs font-normal;
-  color: var(--primary-500);
-}
-
-/* scrollbar styling (replaced @apply bg-primary-* with direct vars) */
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background-color: var(--primary-200);
+  background-color: var(--color-primary-200);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--primary-300);
+  background-color: var(--color-primary-300);
 }
 
-/* Base layer: replaced @apply border-border with direct border-color usage */
-* {
-  border-color: hsl(var(--border));
-}
-body {
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
-}
-
-/* Amplify UI Overrides (kept; they reference hsl(var(--primary)) which still works) */
+/* Amplify UI Overrides */
 [data-amplify-authenticator] {
-  --amplify-components-button-primary-background-color: var(--color-primary);
+  --amplify-components-button-primary-background-color: hsl(var(--primary));
   --amplify-components-button-primary-hover-background-color: hsl(var(--primary) / 0.9);
   --amplify-components-button-border-radius: var(--radius);
   --amplify-components-fieldcontrol-border-radius: var(--radius);
@@ -283,8 +225,7 @@ body {
   margin-top: 1rem;
   background-color: hsl(var(--primary)) !important;
   color: hsl(var(--primary-foreground)) !important;
-  @apply font-medium;
-  @apply text-sm;
+  @apply font-medium text-sm;
 }
 
 [data-amplify-authenticator] .amplify-button--primary:hover {
@@ -322,61 +263,5 @@ body {
 
 /* Sonner Toast Styles */
 [data-close-button="true"] {
-  background: hsl(var(--background));
-  border: 1px solid hsl(var(--border));
-  color: hsl(var(--foreground));
+  @apply bg-background border-border text-foreground hover:bg-muted;
 }
-[data-close-button="true"]:hover {
-  background: hsl(var(--muted));
-}
-
-/* Utility CSS for any remaining cases where original code relied on classes like bg-primary-700,
-   text-primary-200, border-border, etc. These are minimal helpers so you don't need tailwind.config.ts.
-   Add more here only if your templates reference more custom tokens. */
-
-.bg-background { background-color: hsl(var(--background)) !important; }
-.text-foreground { color: hsl(var(--foreground)) !important; }
-.border-border { border-color: hsl(var(--border)) !important; }
-
-.bg-primary-50  { background-color: var(--primary-50) !important; }
-.bg-primary-100 { background-color: var(--primary-100) !important; }
-.bg-primary-200 { background-color: var(--primary-200) !important; }
-.bg-primary-300 { background-color: var(--primary-300) !important; }
-.bg-primary-400 { background-color: var(--primary-400) !important; }
-.bg-primary-500 { background-color: var(--primary-500) !important; }
-.bg-primary-600 { background-color: var(--primary-600) !important; }
-.bg-primary-700 { background-color: var(--primary-700) !important; }
-.bg-primary-800 { background-color: var(--primary-800) !important; }
-.bg-primary-900 { background-color: var(--primary-900) !important; }
-
-.text-primary-50  { color: var(--primary-50) !important; }
-.text-primary-100 { color: var(--primary-100) !important; }
-.text-primary-200 { color: var(--primary-200) !important; }
-.text-primary-300 { color: var(--primary-300) !important; }
-.text-primary-400 { color: var(--primary-400) !important; }
-.text-primary-500 { color: var(--primary-500) !important; }
-.text-primary-600 { color: var(--primary-600) !important; }
-.text-primary-700 { color: var(--primary-700) !important; }
-.text-primary-800 { color: var(--primary-800) !important; }
-.text-primary-900 { color: var(--primary-900) !important; }
-
-/* border utilities mapping */
-.border-primary-700 { border-color: var(--primary-700) !important; }
-.border-t-primary-700 { border-top-color: var(--primary-700) !important; }
-.border-b-primary-700 { border-bottom-color: var(--primary-700) !important; }
-.border-l-primary-700 { border-left-color: var(--primary-700) !important; }
-.border-r-primary-700 { border-right-color: var(--primary-700) !important; }
-
-/* small helpers for muted/accent/destructive if referenced */
-.bg-muted { background-color: hsl(var(--muted)) !important; }
-.text-muted-foreground { color: hsl(var(--muted-foreground)) !important; }
-
-.bg-accent { background-color: hsl(var(--accent)) !important; }
-.text-accent-foreground { color: hsl(var(--accent-foreground)) !important; }
-
-.bg-destructive { background-color: hsl(var(--destructive)) !important; }
-.text-destructive-foreground { color: hsl(var(--destructive-foreground)) !important; }
-
-/* If you need more tailwind-like tokens (e.g., primary-300 hover state),
-   prefer to use inline style or add corresponding .hover\:bg-primary-300 rules.
-   Keep CSS small and only add what's actually used in templates. */
