@@ -8,6 +8,8 @@
 !.yarn/releases
 !.yarn/versions
 
+*.log
+
 # testing
 /coverage
 
@@ -31,7 +33,13 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
+.env
+.env.*
+!.env.example
+
+dist/
+build/
+server/dist/
 
 # vercel
 .vercel
