@@ -1,7 +1,3 @@
-Based on the video content, this is an **Enterprise-level Rental Real Estate Application** tutorial. Let me provide you with a unique project concept to make it your own:
-
-## **Your Project: RoomScout** 🏠
-
 ### **Project Name**
 **RoomScout** - Your AI-Powered Housing Discovery Platform
 
@@ -117,19 +113,3 @@ A full-stack enterprise rental platform built with Next.js, Node.js, and AWS. Ro
 6. 📅 Tour scheduling system
 
 ***
-
-**Next Steps:**
-1. Clone/rename the project to "RoomScout"
-2. Update branding colors in `tailwind.config.js`
-3. Replace logo with your own design (use Canva/Figma)
-4. Follow the video tutorial but customize UI/UX elements
-5. Deploy with your own AWS account
-6. Document everything for your portfolio
-
-This project will be **perfect for your resume** as it demonstrates:
-- Full-stack expertise with modern tech
-- Cloud deployment experience (AWS)
-- Enterprise-level architecture
-- Real-world application design
-
-Want to start building? I can help you set up the initial structure or customize any specific feature! 🚀
